@@ -7,12 +7,13 @@ const validate = (schema, source = 'body') => {
       req[source] = parsed;
       next();
     } catch (error) {
-      if (error.errors) {
+      if (error.errors && Array.isArray(error.errors)) {
         const formattedErrors = error.errors.map((err) => ({
           field: err.path.join('.'),
           message: err.message,
         }));
-        return next(new ApiError(422, 'Validation failed', formattedErrors));
+        const userFriendlyMessage = formattedErrors.map((err) => err.message).join('. ');
+        return next(new ApiError(422, userFriendlyMessage || 'Validation failed', formattedErrors));
       }
       next(error);
     }

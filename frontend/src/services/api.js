@@ -50,8 +50,18 @@ api.interceptors.response.use(
       }
     }
 
-    const message =
-      error.response?.data?.message || error.message || 'An unexpected error occurred. Please try again.';
+    let message = error.response?.data?.message;
+
+    // If backend provided detailed validation error items, extract them
+    if (error.response?.data?.errors && Array.isArray(error.response.data.errors) && error.response.data.errors.length > 0) {
+      const details = error.response.data.errors.map((e) => e.message || e.field).join('. ');
+      message = details || message;
+    }
+
+    if (!message) {
+      message = error.message || 'An unexpected error occurred. Please try again.';
+    }
+
     return Promise.reject(new Error(message));
   }
 );

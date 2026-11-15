@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Modal } from './Modal';
 import { closeAuthModal, setAuthModalMode, addToast } from '../../redux/slices/uiSlice';
-import { loginUser, registerUser } from '../../redux/slices/authSlice';
+import { loginUser, registerUser, clearAuthError } from '../../redux/slices/authSlice';
 import { Mail, Lock, User, Phone, ArrowRight, Loader2 } from 'lucide-react';
 import { HumanNeedIcon } from '../../assets/HumanNeedLogo';
 
@@ -19,6 +19,7 @@ export const AuthModal = () => {
   });
 
   const handleChange = (e) => {
+    if (error) dispatch(clearAuthError());
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
@@ -136,10 +137,13 @@ export const AuthModal = () => {
               required
               value={formData.password}
               onChange={handleChange}
-              placeholder={mode === 'register' ? 'Min 8 chars, 1 uppercase & 1 number' : 'Your password'}
+              placeholder={mode === 'register' ? 'At least 6 characters' : 'Your password'}
               className="input-field pl-10"
             />
           </div>
+          {mode === 'register' && (
+            <p className="text-[11px] text-slate-400 mt-1">Must be at least 6 characters</p>
+          )}
         </div>
 
         <button type="submit" disabled={loading} className="btn-primary w-full py-3 mt-2">
@@ -159,7 +163,10 @@ export const AuthModal = () => {
           <p className="text-sm text-brand-muted">
             Don't have an account?{' '}
             <button
-              onClick={() => dispatch(setAuthModalMode('register'))}
+              onClick={() => {
+                dispatch(clearAuthError());
+                dispatch(setAuthModalMode('register'));
+              }}
               className="font-bold text-brand-royal hover:underline"
             >
               Sign up
@@ -169,7 +176,10 @@ export const AuthModal = () => {
           <p className="text-sm text-brand-muted">
             Already have an account?{' '}
             <button
-              onClick={() => dispatch(setAuthModalMode('login'))}
+              onClick={() => {
+                dispatch(clearAuthError());
+                dispatch(setAuthModalMode('login'));
+              }}
               className="font-bold text-brand-royal hover:underline"
             >
               Sign in

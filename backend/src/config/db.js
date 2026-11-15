@@ -13,17 +13,28 @@ const connectDB = async () => {
   try {
     const conn = await mongoose.connect(env.MONGODB_URI, {
       autoIndex: true,
-      serverSelectionTimeoutMS: 5000,
+      serverSelectionTimeoutMS: 4000,
     });
 
     isConnected = true;
     logger.info(`MongoDB Connected successfully: ${conn.connection.host}/${conn.connection.name}`);
   } catch (error) {
-    logger.error(`MongoDB Connection Error: ${error.message}`);
+    logger.warn(`Could not connect to configured MongoDB URI (${env.MONGODB_URI}): ${error.message}`);
     if (env.NODE_ENV === 'production') {
+      logger.error('Fatal: Cannot run in production without a valid MongoDB connection.');
       process.exit(1);
     } else {
-      logger.warn('Running in development mode without active MongoDB. Ensure MONGODB_URI in .env points to a valid MongoDB Atlas cluster or local instance.');
+      logger.info('Starting local in-memory MongoDB server for development fallback...');
+      try {
+        const { MongoMemoryServer } = require('mongodb-memory-server');
+        const mongod = await MongoMemoryServer.create();
+        const memUri = mongod.getUri();
+        await mongoose.connect(memUri);
+        isConnected = true;
+        logger.info(`In-memory development MongoDB connected successfully at: ${memUri}`);
+      } catch (memErr) {
+        logger.error(`In-memory MongoDB startup failed: ${memErr.message}`);
+      }
     }
   }
 };
