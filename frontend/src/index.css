@@ -1,0 +1,64 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  }
+
+  body {
+    background-color: #F7F8FC;
+    color: #111827;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+  }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+
+::-webkit-scrollbar-track {
+  background: #F1F3F9;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #CBD5E1;
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94A3B8;
+}
+
+/* Common component utility classes */
+@layer components {
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl font-semibold text-white bg-brand-royal hover:bg-brand-royal-hover active:scale-[0.98] transition-all shadow-sm focus:outline-none focus:ring-2 focus:ring-brand-royal/40 disabled:opacity-60 disabled:cursor-not-allowed disabled:pointer-events-none;
+  }
+
+  .btn-accent {
+    @apply inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl font-semibold text-brand-dark bg-brand-orange hover:bg-brand-orange-hover active:scale-[0.98] transition-all shadow-sm focus:outline-none focus:ring-2 focus:ring-brand-orange/40 disabled:opacity-60;
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl font-semibold text-brand-navy bg-white hover:bg-slate-50 border border-slate-200 active:scale-[0.98] transition-all shadow-sm focus:outline-none focus:ring-2 focus:ring-brand-navy/20;
+  }
+
+  .btn-navy {
+    @apply inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl font-semibold text-white bg-brand-navy hover:bg-slate-800 active:scale-[0.98] transition-all shadow-sm focus:outline-none focus:ring-2 focus:ring-brand-navy/30;
+  }
+
+  .input-field {
+    @apply w-full px-4 py-2.5 bg-white border border-slate-200 rounded-xl text-brand-dark placeholder-slate-400 focus:outline-none focus:border-brand-royal focus:ring-2 focus:ring-brand-royal/20 transition-all text-sm;
+  }
+
+  .card-modern {
+    @apply bg-white rounded-2xl border border-slate-100 shadow-card hover:shadow-card-hover transition-all duration-300;
+  }
+}
