@@ -11,8 +11,9 @@
 1. **Zero Dummy Data Guarantee**: Clean database start. No fake products, simulated reviews, or invented sales numbers. Empty states guide customers, sellers, and administrators gracefully until real data is published.
 2. **Cryptographic Payment Integrity**: Razorpay payment gateway integration with server-side order calculation, HMAC-SHA256 signature verification, webhook validation, and Cash on Delivery (COD) support.
 3. **Multi-Vendor Isolation**: Role-based access control (Customer, Seller, Admin). Strict seller isolation ensures sellers can only access and fulfill their own order items and inventory.
-4. **Automated Test Coverage**: 100% passing automated test suite covering authentication, RBAC authorization, atomic inventory decrement/replenishment, order pricing engine, and payment cryptography.
-5. **Modern Responsive Design**: Built with Vite, Tailwind CSS, Lucide icons, and Redux Toolkit. Fully responsive across desktop, tablet, and mobile with zero horizontal scrolling.
+4. **Automated Test Coverage**: 100% passing automated test suite (20/20 tests across 5 test suites) covering authentication, RBAC authorization, atomic inventory decrement/replenishment, order pricing engine, payment cryptography, and AI recommendations.
+5. **AI Shopping Assistant & Voice Search**: Interactive conversational shopping assistant ("Ask HumanNeed AI") with catalog grounding, Gemini AI integration support, and Web Speech API voice search.
+6. **Modern Responsive Design**: Built with Vite, Tailwind CSS, Lucide icons, and Redux Toolkit. Fully responsive across desktop, tablet, and mobile with zero horizontal scrolling.
 
 ---
 
@@ -150,11 +151,12 @@ HumanNeed natively integrates Razorpay:
 
 ## 🧪 Testing Results
 
-All 4 test suites pass with 100% green status:
+All 5 test suites pass with 100% green status (20/20 tests):
 - `tests/payment_and_order.test.js`: Validates cryptographic HMAC-SHA256 signature verification and atomic inventory reservation.
 - `tests/seller_and_admin.test.js`: Validates unapproved seller protection, admin verification approval, and cross-seller data isolation.
 - `tests/auth.test.js`: Validates registration, duplicate email rejection, weak password rejection, and JWT session handling.
 - `tests/pricing_and_cart.test.js`: Validates subtotal, percentage coupons with maximum discount caps, fixed coupons, and free delivery thresholds.
+- `tests/ai_and_recommendations.test.js`: Validates category-filtered recommendations, conversational shopping queries, and budget-filtered catalog matching.
 
 ---
 
