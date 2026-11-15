@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { HumanNeedLogo } from '../../assets/HumanNeedLogo';
 import { openAuthModal } from '../../redux/slices/uiSlice';
 import { logoutUser } from '../../redux/slices/authSlice';
+import { AIAssistantDrawer } from './AIAssistantDrawer';
 import api from '../../services/api';
 import {
   Search,
@@ -19,6 +20,8 @@ import {
   LogOut,
   MapPin,
   Sparkles,
+  Mic,
+  MicOff,
 } from 'lucide-react';
 
 export const Navbar = () => {
@@ -34,10 +37,54 @@ export const Navbar = () => {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isAIAssistantOpen, setIsAIAssistantOpen] = useState(false);
+  const [isVoiceListening, setIsVoiceListening] = useState(false);
   const [categories, setCategories] = useState([]);
 
   const searchRef = useRef(null);
   const profileRef = useRef(null);
+
+  // Web Speech API Voice Search
+  const handleVoiceSearch = () => {
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (!SpeechRecognition) {
+      alert('Speech recognition is not supported in this browser. Please use Google Chrome or Microsoft Edge.');
+      return;
+    }
+
+    if (isVoiceListening) return;
+
+    try {
+      const recognition = new SpeechRecognition();
+      recognition.lang = 'en-IN';
+      recognition.interimResults = false;
+
+      recognition.onstart = () => {
+        setIsVoiceListening(true);
+      };
+
+      recognition.onresult = (e) => {
+        const transcript = e.results[0][0].transcript;
+        if (transcript) {
+          setSearchQuery(transcript);
+          setIsSearchOpen(false);
+          navigate(`/shop?search=${encodeURIComponent(transcript.trim())}`);
+        }
+      };
+
+      recognition.onerror = () => {
+        setIsVoiceListening(false);
+      };
+
+      recognition.onend = () => {
+        setIsVoiceListening(false);
+      };
+
+      recognition.start();
+    } catch (err) {
+      setIsVoiceListening(false);
+    }
+  };
 
   // Load top categories for category bar
   useEffect(() => {
@@ -142,13 +189,28 @@ export const Navbar = () => {
             <form onSubmit={handleSearchSubmit} className="relative">
               <input
                 type="text"
-                placeholder="Search for products, brands, essentials..."
+                placeholder={isVoiceListening ? 'Listening... Speak your search...' : 'Search for products, brands, essentials...'}
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 onFocus={() => searchQuery.length >= 2 && setIsSearchOpen(true)}
-                className="w-full pl-11 pr-24 py-2.5 bg-slate-50 border border-slate-200 rounded-full text-sm text-brand-dark placeholder-slate-400 focus:outline-none focus:bg-white focus:border-brand-royal focus:ring-2 focus:ring-brand-royal/20 transition-all"
+                className="w-full pl-11 pr-28 py-2.5 bg-slate-50 border border-slate-200 rounded-full text-sm text-brand-dark placeholder-slate-400 focus:outline-none focus:bg-white focus:border-brand-royal focus:ring-2 focus:ring-brand-royal/20 transition-all"
               />
               <Search className="w-4 h-4 text-slate-400 absolute left-4 top-3.5" />
+
+              {/* Voice Search Button */}
+              <button
+                type="button"
+                onClick={handleVoiceSearch}
+                className={`absolute right-20 top-2 p-1.5 rounded-full transition-all ${
+                  isVoiceListening
+                    ? 'bg-red-500 text-white animate-pulse'
+                    : 'text-slate-400 hover:text-brand-royal hover:bg-slate-100'
+                }`}
+                title="Voice Search"
+              >
+                {isVoiceListening ? <MicOff className="w-3.5 h-3.5" /> : <Mic className="w-3.5 h-3.5" />}
+              </button>
+
               <button
                 type="submit"
                 className="absolute right-1.5 top-1.5 px-4 py-1.5 bg-brand-royal text-white rounded-full text-xs font-semibold hover:bg-brand-royal-hover transition-colors"
@@ -212,6 +274,16 @@ export const Navbar = () => {
 
           {/* Right Action Icons & Auth */}
           <div className="flex items-center gap-3 sm:gap-5">
+            {/* Ask AI Pill Button */}
+            <button
+              onClick={() => setIsAIAssistantOpen(true)}
+              className="hidden lg:flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-gradient-to-r from-brand-navy to-slate-900 text-white text-xs font-semibold hover:opacity-90 transition-opacity shadow-sm"
+              title="HumanNeed AI Shopping Assistant"
+            >
+              <Sparkles className="w-3.5 h-3.5 text-brand-orange animate-pulse" />
+              <span>Ask AI</span>
+            </button>
+
             {/* Wishlist */}
             <Link
               to="/dashboard?tab=wishlist"
@@ -358,12 +430,22 @@ export const Navbar = () => {
           <form onSubmit={handleSearchSubmit} className="relative">
             <input
               type="text"
-              placeholder="Search products..."
+              placeholder={isVoiceListening ? 'Listening... Speak now...' : 'Search products...'}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-10 pr-4 py-2 bg-slate-50 border border-slate-200 rounded-full text-xs text-brand-dark"
+              className="w-full pl-10 pr-10 py-2 bg-slate-50 border border-slate-200 rounded-full text-xs text-brand-dark"
             />
             <Search className="w-3.5 h-3.5 text-slate-400 absolute left-3.5 top-3" />
+            <button
+              type="button"
+              onClick={handleVoiceSearch}
+              className={`absolute right-3 top-2 p-1 rounded-full ${
+                isVoiceListening ? 'bg-red-500 text-white animate-pulse' : 'text-slate-400 hover:text-brand-royal'
+              }`}
+              title="Voice Search"
+            >
+              <Mic className="w-3.5 h-3.5" />
+            </button>
           </form>
         </div>
       </div>
@@ -415,6 +497,16 @@ export const Navbar = () => {
             >
               Sell on HumanNeed
             </Link>
+            <button
+              onClick={() => {
+                setIsMobileMenuOpen(false);
+                setIsAIAssistantOpen(true);
+              }}
+              className="p-2 bg-brand-navy text-white rounded-lg font-bold flex items-center gap-1.5 justify-center"
+            >
+              <Sparkles className="w-3.5 h-3.5 text-brand-orange animate-pulse" />
+              <span>Ask AI Assistant</span>
+            </button>
             {categories.map((cat) => (
               <Link
                 key={cat._id}
@@ -428,6 +520,24 @@ export const Navbar = () => {
           </div>
         </div>
       )}
+
+      {/* Floating AI Shopping Assistant Launcher */}
+      <button
+        onClick={() => setIsAIAssistantOpen(true)}
+        className="fixed bottom-6 right-6 z-40 flex items-center gap-2 bg-gradient-to-r from-brand-navy to-slate-900 text-white px-4 py-3 rounded-full shadow-premium hover:shadow-2xl hover:scale-105 transition-all group border border-white/10"
+        title="Ask HumanNeed AI Assistant"
+      >
+        <div className="w-7 h-7 rounded-full bg-brand-royal flex items-center justify-center">
+          <Sparkles className="w-4 h-4 text-brand-orange animate-pulse" />
+        </div>
+        <span className="text-xs font-bold tracking-tight pr-1">Ask AI</span>
+      </button>
+
+      {/* AI Assistant Interactive Drawer */}
+      <AIAssistantDrawer
+        isOpen={isAIAssistantOpen}
+        onClose={() => setIsAIAssistantOpen(false)}
+      />
     </header>
   );
 };

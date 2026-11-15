@@ -65,6 +65,30 @@ export const ProductDetailPage = () => {
           // Fetch reviews
           const reviewsRes = await api.get(`/reviews/product/${res.data.product._id}`);
           if (reviewsRes.data) setReviews(reviewsRes.data);
+
+          // Save to recently viewed in localStorage
+          try {
+            const current = JSON.parse(localStorage.getItem('hn_recently_viewed') || '[]');
+            const filtered = current.filter((p) => p._id !== res.data.product._id);
+            const updated = [
+              {
+                _id: res.data.product._id,
+                title: res.data.product.title,
+                slug: res.data.product.slug,
+                price: res.data.product.price,
+                discountPrice: res.data.product.discountPrice,
+                images: res.data.product.images,
+                ratingsAverage: res.data.product.ratingsAverage,
+                ratingsCount: res.data.product.ratingsCount,
+                stockQuantity: res.data.product.stockQuantity,
+                category: res.data.product.category,
+              },
+              ...filtered,
+            ].slice(0, 10);
+            localStorage.setItem('hn_recently_viewed', JSON.stringify(updated));
+          } catch (e) {
+            // LocalStorage fallback
+          }
         }
       } catch (err) {
         setProductData(null);

@@ -14,6 +14,8 @@ import {
   Truck,
   RotateCcw,
   Store,
+  Compass,
+  History,
 } from 'lucide-react';
 
 export const HomePage = () => {
@@ -21,17 +23,30 @@ export const HomePage = () => {
   const [featuredProducts, setFeaturedProducts] = useState([]);
   const [trendingProducts, setTrendingProducts] = useState([]);
   const [bestSellers, setBestSellers] = useState([]);
+  const [recommendedProducts, setRecommendedProducts] = useState([]);
+  const [recentlyViewed, setRecentlyViewed] = useState([]);
   const [banners, setBanners] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    // Load recently viewed products from localStorage
+    try {
+      const stored = JSON.parse(localStorage.getItem('hn_recently_viewed') || '[]');
+      if (Array.isArray(stored)) {
+        setRecentlyViewed(stored);
+      }
+    } catch (e) {
+      // LocalStorage error ignore
+    }
+
     const loadHomeData = async () => {
       try {
-        const [catsRes, featRes, trendRes, bestRes, banRes] = await Promise.allSettled([
+        const [catsRes, featRes, trendRes, bestRes, recRes, banRes] = await Promise.allSettled([
           api.get('/categories'),
           api.get('/products/featured'),
           api.get('/products/trending'),
           api.get('/products/best-sellers'),
+          api.get('/products/recommended'),
           api.get('/banners/active?position=hero'),
         ]);
 
@@ -46,6 +61,9 @@ export const HomePage = () => {
         }
         if (bestRes.status === 'fulfilled' && bestRes.value?.data) {
           setBestSellers(bestRes.value.data);
+        }
+        if (recRes.status === 'fulfilled' && recRes.value?.data) {
+          setRecommendedProducts(recRes.value.data);
         }
         if (banRes.status === 'fulfilled' && banRes.value?.data) {
           setBanners(banRes.value.data);
@@ -269,7 +287,79 @@ export const HomePage = () => {
         )}
       </section>
 
-      {/* 5. Become a Seller Promotional Banner */}
+      {/* 5. Personalized Recommendations */}
+      <section className="max-w-7xl mx-auto px-4">
+        <div className="flex items-center justify-between mb-6">
+          <div className="flex items-center gap-2">
+            <div className="p-2 rounded-xl bg-purple-50 text-purple-600">
+              <Compass className="w-5 h-5" />
+            </div>
+            <div>
+              <h2 className="text-xl md:text-2xl font-extrabold text-brand-dark">Recommended For You</h2>
+              <p className="text-xs text-brand-muted mt-0.5">Personalized selections matching your shopping interests</p>
+            </div>
+          </div>
+          <Link
+            to="/shop?sort=rating"
+            className="text-xs font-bold text-brand-royal hover:text-brand-royal-hover flex items-center gap-1"
+          >
+            <span>View All</span>
+            <ArrowRight className="w-3.5 h-3.5" />
+          </Link>
+        </div>
+
+        {loading ? (
+          <ProductGridSkeleton count={4} />
+        ) : recommendedProducts.length > 0 ? (
+          <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
+            {recommendedProducts.map((product) => (
+              <ProductCard key={product._id} product={product} />
+            ))}
+          </div>
+        ) : (
+          <EmptyState
+            type="products"
+            title="Personalizing Suggestions"
+            description="As you explore catalogs and save favorites, HumanNeed builds tailored suggestions."
+            actionText="Start Browsing"
+            actionLink="/shop"
+          />
+        )}
+      </section>
+
+      {/* 6. Recently Viewed Products (Hydrated from real browsing history) */}
+      {recentlyViewed.length > 0 && (
+        <section className="max-w-7xl mx-auto px-4">
+          <div className="flex items-center justify-between mb-6">
+            <div className="flex items-center gap-2">
+              <div className="p-2 rounded-xl bg-slate-100 text-slate-700">
+                <History className="w-5 h-5" />
+              </div>
+              <div>
+                <h2 className="text-xl md:text-2xl font-extrabold text-brand-dark">Recently Viewed</h2>
+                <p className="text-xs text-brand-muted mt-0.5">Jump right back to items you checked out earlier</p>
+              </div>
+            </div>
+            <button
+              onClick={() => {
+                localStorage.removeItem('hn_recently_viewed');
+                setRecentlyViewed([]);
+              }}
+              className="text-xs font-semibold text-slate-400 hover:text-brand-error transition-colors"
+            >
+              Clear History
+            </button>
+          </div>
+
+          <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+            {recentlyViewed.slice(0, 5).map((product) => (
+              <ProductCard key={product._id} product={product} />
+            ))}
+          </div>
+        </section>
+      )}
+
+      {/* 7. Become a Seller Promotional Banner */}
       <section className="max-w-7xl mx-auto px-4">
         <div className="bg-gradient-to-r from-brand-navy to-slate-900 rounded-3xl p-8 md:p-12 text-white flex flex-col md:flex-row items-center justify-between gap-8 shadow-premium">
           <div className="space-y-3 max-w-xl text-center md:text-left">

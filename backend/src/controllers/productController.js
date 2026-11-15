@@ -234,6 +234,54 @@ const getBestSellers = async (req, res, next) => {
   }
 };
 
+const getRecommendedProducts = async (req, res, next) => {
+  try {
+    const { category, excludeId } = req.query;
+    const filter = { status: 'active', stockQuantity: { $gt: 0 } };
+
+    if (excludeId && excludeId.match(/^[0-9a-fA-F]{24}$/)) {
+      filter._id = { $ne: excludeId };
+    }
+
+    if (category) {
+      if (category.match(/^[0-9a-fA-F]{24}$/)) {
+        filter.category = category;
+      } else {
+        const cat = await Category.findOne({ slug: category });
+        if (cat) filter.category = cat._id;
+      }
+    }
+
+    let products = await Product.find(filter)
+      .populate('category', 'name slug')
+      .populate('seller', 'storeName rating isVerified')
+      .sort({ ratingsAverage: -1, salesCount: -1, viewsCount: -1 })
+      .limit(8)
+      .lean({ virtuals: true });
+
+    // Fallback if specific category filter yielded too few items
+    if (products.length < 4 && filter.category) {
+      const existingIds = products.map((p) => p._id);
+      const fallback = await Product.find({
+        status: 'active',
+        stockQuantity: { $gt: 0 },
+        _id: { $nin: existingIds },
+      })
+        .populate('category', 'name slug')
+        .populate('seller', 'storeName rating isVerified')
+        .sort({ ratingsAverage: -1, salesCount: -1 })
+        .limit(8 - products.length)
+        .lean({ virtuals: true });
+
+      products = [...products, ...fallback];
+    }
+
+    return ApiResponse.success(res, products);
+  } catch (error) {
+    next(error);
+  }
+};
+
 const compareProducts = async (req, res, next) => {
   try {
     const { ids } = req.body;
@@ -259,5 +307,6 @@ module.exports = {
   getFeaturedProducts,
   getTrendingProducts,
   getBestSellers,
+  getRecommendedProducts,
   compareProducts,
 };
