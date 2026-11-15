@@ -15,16 +15,16 @@ export const ProductComparisonDrawer = () => {
     return (
       <button
         onClick={() => dispatch(toggleCompareDrawer(true))}
-        className="fixed bottom-5 left-5 z-40 bg-brand-navy text-white px-4 py-2.5 rounded-full shadow-premium flex items-center gap-2 text-xs font-bold hover:bg-slate-800 transition-all animate-bounce"
+        className="fixed bottom-20 left-4 sm:bottom-5 sm:left-5 z-30 bg-brand-navy text-white px-3.5 py-2 sm:px-4 sm:py-2.5 rounded-full shadow-premium flex items-center gap-2 text-xs font-bold hover:bg-slate-800 transition-all"
       >
         <Scale className="w-4 h-4 text-brand-orange" />
-        <span>Compare Products ({items.length})</span>
+        <span>Compare ({items.length})</span>
       </button>
     );
   }
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-40 bg-white border-t border-slate-200 shadow-premium p-4 animate-slide-up">
+    <div className="fixed bottom-14 md:bottom-0 left-0 right-0 z-40 bg-white border-t border-slate-200 shadow-premium p-3 sm:p-4 animate-slide-up">
       <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
         <div className="flex items-center gap-3">
           <div className="flex items-center gap-1.5 font-bold text-xs uppercase tracking-wider text-brand-navy">

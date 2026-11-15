@@ -153,88 +153,88 @@ export const DashboardPage = () => {
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-8 space-y-8">
+    <div className="max-w-7xl mx-auto px-3 sm:px-4 py-4 sm:py-8 space-y-6 sm:space-y-8">
       {/* Top Header & Metrics Bar */}
-      <div className="bg-white rounded-3xl border border-slate-100 p-6 shadow-subtle flex flex-col md:flex-row items-center justify-between gap-6">
-        <div className="flex items-center gap-4">
-          <div className="w-16 h-16 rounded-2xl bg-brand-navy text-white flex items-center justify-center text-xl font-bold">
+      <div className="bg-white rounded-2xl sm:rounded-3xl border border-slate-100 p-4 sm:p-6 shadow-subtle flex flex-col md:flex-row items-center justify-between gap-4 sm:gap-6">
+        <div className="flex items-center gap-3 sm:gap-4 w-full md:w-auto">
+          <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-2xl bg-brand-navy text-white flex items-center justify-center text-lg sm:text-xl font-bold shrink-0">
             {user?.name ? user.name.charAt(0).toUpperCase() : 'U'}
           </div>
-          <div>
-            <h1 className="text-xl font-extrabold text-brand-dark">{user?.name}</h1>
-            <p className="text-xs text-brand-muted">{user?.email}</p>
+          <div className="min-w-0">
+            <h1 className="text-lg sm:text-xl font-extrabold text-brand-dark truncate">{user?.name}</h1>
+            <p className="text-xs text-brand-muted truncate">{user?.email}</p>
             <span className="inline-block mt-1 px-2.5 py-0.5 bg-brand-royal-light text-brand-royal rounded text-[10px] font-bold uppercase">
               {user?.role} Account
             </span>
           </div>
         </div>
 
-        <div className="flex items-center gap-6 divide-x divide-slate-100 text-center">
-          <div className="px-3">
-            <p className="text-lg font-extrabold text-brand-navy">{stats.totalOrders}</p>
-            <p className="text-xs text-slate-400">Total Orders</p>
+        <div className="flex items-center justify-around w-full md:w-auto divide-x divide-slate-100 text-center border-t md:border-t-0 pt-3 md:pt-0">
+          <div className="px-2 sm:px-3">
+            <p className="text-base sm:text-lg font-extrabold text-brand-navy">{stats.totalOrders}</p>
+            <p className="text-[10px] sm:text-xs text-slate-400">Total Orders</p>
           </div>
-          <div className="px-4">
-            <p className="text-lg font-extrabold text-brand-orange">{wishlistItems.length}</p>
-            <p className="text-xs text-slate-400">Saved Wishlist</p>
+          <div className="px-3 sm:px-4">
+            <p className="text-base sm:text-lg font-extrabold text-brand-orange">{wishlistItems.length}</p>
+            <p className="text-[10px] sm:text-xs text-slate-400">Saved Wishlist</p>
           </div>
-          <div className="px-4">
-            <p className="text-lg font-extrabold text-brand-royal">{stats.totalReviews}</p>
-            <p className="text-xs text-slate-400">Reviews Written</p>
+          <div className="px-3 sm:px-4">
+            <p className="text-base sm:text-lg font-extrabold text-brand-royal">{stats.totalReviews}</p>
+            <p className="text-[10px] sm:text-xs text-slate-400">Reviews Written</p>
           </div>
         </div>
       </div>
 
       {/* Tabs Navigation & Tab Body */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-start">
         {/* Navigation Sidebar */}
-        <div className="lg:col-span-3 bg-white rounded-3xl border border-slate-100 p-3 shadow-subtle space-y-1">
+        <div className="lg:col-span-3 bg-white rounded-2xl sm:rounded-3xl border border-slate-100 p-1.5 sm:p-3 shadow-subtle flex lg:flex-col overflow-x-auto gap-1 no-scrollbar shrink-0">
           <button
             onClick={() => setSearchParams({ tab: 'orders' })}
-            className={`w-full flex items-center gap-3 px-4 py-3 rounded-2xl text-xs font-bold transition-all ${
+            className={`flex items-center justify-center lg:justify-start gap-2 sm:gap-3 px-3 sm:px-4 py-2 sm:py-3 rounded-xl sm:rounded-2xl text-xs font-bold transition-all whitespace-nowrap shrink-0 lg:w-full ${
               activeTab === 'orders'
                 ? 'bg-brand-royal text-white shadow-sm'
                 : 'text-slate-600 hover:bg-slate-50'
             }`}
           >
             <Package className="w-4 h-4" />
-            <span>My Orders</span>
+            <span>Orders</span>
           </button>
 
           <button
             onClick={() => setSearchParams({ tab: 'addresses' })}
-            className={`w-full flex items-center gap-3 px-4 py-3 rounded-2xl text-xs font-bold transition-all ${
+            className={`flex items-center justify-center lg:justify-start gap-2 sm:gap-3 px-3 sm:px-4 py-2 sm:py-3 rounded-xl sm:rounded-2xl text-xs font-bold transition-all whitespace-nowrap shrink-0 lg:w-full ${
               activeTab === 'addresses'
                 ? 'bg-brand-royal text-white shadow-sm'
                 : 'text-slate-600 hover:bg-slate-50'
             }`}
           >
             <MapPin className="w-4 h-4" />
-            <span>Delivery Addresses</span>
+            <span>Addresses</span>
           </button>
 
           <button
             onClick={() => setSearchParams({ tab: 'wishlist' })}
-            className={`w-full flex items-center gap-3 px-4 py-3 rounded-2xl text-xs font-bold transition-all ${
+            className={`flex items-center justify-center lg:justify-start gap-2 sm:gap-3 px-3 sm:px-4 py-2 sm:py-3 rounded-xl sm:rounded-2xl text-xs font-bold transition-all whitespace-nowrap shrink-0 lg:w-full ${
               activeTab === 'wishlist'
                 ? 'bg-brand-royal text-white shadow-sm'
                 : 'text-slate-600 hover:bg-slate-50'
             }`}
           >
             <Heart className="w-4 h-4" />
-            <span>My Wishlist ({wishlistItems.length})</span>
+            <span>Wishlist ({wishlistItems.length})</span>
           </button>
 
           <button
             onClick={() => setSearchParams({ tab: 'profile' })}
-            className={`w-full flex items-center gap-3 px-4 py-3 rounded-2xl text-xs font-bold transition-all ${
+            className={`flex items-center justify-center lg:justify-start gap-2 sm:gap-3 px-3 sm:px-4 py-2 sm:py-3 rounded-xl sm:rounded-2xl text-xs font-bold transition-all whitespace-nowrap shrink-0 lg:w-full ${
               activeTab === 'profile'
                 ? 'bg-brand-royal text-white shadow-sm'
                 : 'text-slate-600 hover:bg-slate-50'
             }`}
           >
             <User className="w-4 h-4" />
-            <span>Profile & Security</span>
+            <span>Profile</span>
           </button>
         </div>
 

@@ -38,12 +38,12 @@ export const HumanNeedLogo = ({
   size = "normal", // "small", "normal", "large"
 }) => {
   const isDark = variant === "dark";
-  const iconSize = size === "small" ? "w-7 h-7" : size === "large" ? "w-12 h-12" : "w-10 h-10";
-  const titleSize = size === "small" ? "text-lg" : size === "large" ? "text-2xl" : "text-xl";
-  const taglineSize = size === "small" ? "text-[10px]" : "text-xs";
+  const iconSize = size === "small" ? "w-6 h-6" : size === "large" ? "w-10 h-10 sm:w-12 sm:h-12" : "w-8 h-8 sm:w-10 sm:h-10";
+  const titleSize = size === "small" ? "text-base sm:text-lg" : size === "large" ? "text-xl sm:text-2xl" : "text-lg sm:text-xl";
+  const taglineSize = size === "small" ? "text-[9px]" : "text-[10px] sm:text-xs";
 
   return (
-    <div className={`flex items-center gap-2.5 select-none ${className}`}>
+    <div className={`flex items-center gap-2 sm:gap-2.5 select-none ${className}`}>
       <HumanNeedIcon className={iconSize} />
       <div className="flex flex-col">
         <div className={`font-extrabold tracking-tight leading-none ${titleSize}`}>
@@ -53,7 +53,7 @@ export const HumanNeedLogo = ({
         </div>
         {showTagline && (
           <span
-            className={`font-medium tracking-tight mt-0.5 ${taglineSize} ${
+            className={`font-medium tracking-tight mt-0.5 hidden sm:inline ${taglineSize} ${
               isDark ? "text-brand-muted" : "text-slate-300"
             }`}
           >

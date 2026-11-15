@@ -202,10 +202,10 @@ export const CheckoutPage = () => {
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-8 space-y-8">
+    <div className="max-w-7xl mx-auto px-3 sm:px-4 py-4 sm:py-8 space-y-6 sm:space-y-8">
       <div>
-        <h1 className="text-2xl font-extrabold text-brand-dark">Secure Checkout</h1>
-        <p className="text-xs text-brand-muted mt-0.5">Complete your order with verified security</p>
+        <h1 className="text-xl sm:text-2xl font-extrabold text-brand-dark">Secure Checkout</h1>
+        <p className="text-[11px] sm:text-xs text-brand-muted mt-0.5">Complete your order with verified security</p>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">

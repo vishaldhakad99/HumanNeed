@@ -7,6 +7,7 @@ import { fetchWishlist } from './redux/slices/wishlistSlice';
 
 // Components
 import Navbar from './components/common/Navbar';
+import BottomNav from './components/common/BottomNav';
 import Footer from './components/common/Footer';
 import ToastContainer from './components/common/Toast';
 import AuthModal from './components/common/AuthModal';
@@ -62,7 +63,7 @@ export const App = () => {
       <Navbar />
 
       {/* Main Page Body */}
-      <main className="flex-1">
+      <main className="flex-1 pb-16 md:pb-0">
         <Routes>
           {/* Customer Routes */}
           <Route path="/" element={<HomePage />} />
@@ -212,6 +213,9 @@ export const App = () => {
 
       {/* Global Bottom Footer */}
       <Footer />
+
+      {/* Mobile Bottom Navigation Bar */}
+      <BottomNav />
 
       {/* Comparison Drawer (Bottom Right) */}
       <ProductComparisonDrawer />

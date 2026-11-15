@@ -194,29 +194,29 @@ export const ProductDetailPage = () => {
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-8 space-y-12">
+    <div className="max-w-7xl mx-auto px-3 sm:px-4 py-4 sm:py-8 space-y-8 sm:space-y-12">
       {/* 1. Breadcrumbs Navigation */}
-      <nav className="flex items-center gap-2 text-xs font-medium text-brand-muted">
-        <Link to="/" className="hover:text-brand-royal transition-colors">
+      <nav className="flex items-center gap-1.5 sm:gap-2 text-xs font-medium text-brand-muted overflow-x-auto whitespace-nowrap pb-1 no-scrollbar">
+        <Link to="/" className="hover:text-brand-royal transition-colors shrink-0">
           Home
         </Link>
-        <ChevronRight className="w-3.5 h-3.5" />
-        <Link to="/shop" className="hover:text-brand-royal transition-colors">
+        <ChevronRight className="w-3.5 h-3.5 shrink-0" />
+        <Link to="/shop" className="hover:text-brand-royal transition-colors shrink-0">
           Shop
         </Link>
         {productData.category && (
           <>
-            <ChevronRight className="w-3.5 h-3.5" />
+            <ChevronRight className="w-3.5 h-3.5 shrink-0" />
             <Link
               to={`/shop?category=${productData.category.slug}`}
-              className="hover:text-brand-royal transition-colors"
+              className="hover:text-brand-royal transition-colors shrink-0"
             >
               {productData.category.name}
             </Link>
           </>
         )}
-        <ChevronRight className="w-3.5 h-3.5" />
-        <span className="text-brand-dark truncate max-w-xs">{productData.title}</span>
+        <ChevronRight className="w-3.5 h-3.5 shrink-0" />
+        <span className="text-brand-dark truncate max-w-[150px] sm:max-w-xs">{productData.title}</span>
       </nav>
 
       {/* 2. Main Product Showcase Grid */}
@@ -297,13 +297,13 @@ export const ProductDetailPage = () => {
           </div>
 
           {/* Pricing Details */}
-          <div className="p-4 bg-slate-50 rounded-2xl border border-slate-100 flex items-baseline gap-3">
-            <span className="text-3xl font-extrabold text-brand-navy">
+          <div className="p-3.5 sm:p-4 bg-slate-50 rounded-2xl border border-slate-100 flex flex-wrap items-baseline gap-2 sm:gap-3">
+            <span className="text-2xl sm:text-3xl font-extrabold text-brand-navy">
               ₹{productData.discountPrice.toLocaleString('en-IN')}
             </span>
             {discountPercent > 0 && (
               <>
-                <span className="text-sm text-slate-400 line-through">
+                <span className="text-xs sm:text-sm text-slate-400 line-through">
                   ₹{productData.price.toLocaleString('en-IN')}
                 </span>
                 <span className="text-xs font-bold text-brand-success">
@@ -312,7 +312,7 @@ export const ProductDetailPage = () => {
                 </span>
               </>
             )}
-            <span className="text-[11px] text-slate-400 ml-auto">Inclusive of all taxes</span>
+            <span className="text-[10px] sm:text-[11px] text-slate-400 w-full sm:w-auto sm:ml-auto">Inclusive of all taxes</span>
           </div>
 
           {/* Stock Availability */}
@@ -358,47 +358,51 @@ export const ProductDetailPage = () => {
               </div>
             )}
 
-            <div className="flex flex-wrap items-center gap-3">
+            <div className="grid grid-cols-2 gap-2.5 sm:flex sm:items-center sm:gap-3">
               <button
                 onClick={handleAddToCart}
                 disabled={isOutOfStock}
-                className="btn-primary flex-1 py-3 text-sm"
+                className="btn-primary w-full sm:flex-1 py-3 text-xs sm:text-sm font-bold flex items-center justify-center gap-2"
               >
-                <ShoppingCart className="w-4 h-4" />
+                <ShoppingCart className="w-4 h-4 shrink-0" />
                 <span>Add to Cart</span>
               </button>
 
               <button
                 onClick={handleBuyNow}
                 disabled={isOutOfStock}
-                className="btn-accent flex-1 py-3 text-sm"
+                className="btn-accent w-full sm:flex-1 py-3 text-xs sm:text-sm font-bold flex items-center justify-center gap-2"
               >
-                <Zap className="w-4 h-4" />
+                <Zap className="w-4 h-4 shrink-0" />
                 <span>Buy Now</span>
               </button>
 
-              <button
-                onClick={() => dispatch(toggleWishlistAsync(productData._id))}
-                className={`p-3 rounded-xl border transition-all ${
-                  isWishlisted
-                    ? 'border-brand-error bg-red-50 text-brand-error'
-                    : 'border-slate-200 bg-white text-slate-500 hover:text-brand-error'
-                }`}
-                title="Wishlist"
-              >
-                <Heart className={`w-5 h-5 ${isWishlisted ? 'fill-current' : ''}`} />
-              </button>
+              <div className="col-span-2 flex items-center justify-end gap-2 sm:col-span-1">
+                <button
+                  onClick={() => dispatch(toggleWishlistAsync(productData._id))}
+                  className={`flex-1 sm:flex-initial flex items-center justify-center gap-1.5 p-2.5 sm:p-3 rounded-xl border transition-all text-xs font-semibold ${
+                    isWishlisted
+                      ? 'border-brand-error bg-red-50 text-brand-error'
+                      : 'border-slate-200 bg-white text-slate-600 hover:text-brand-error'
+                  }`}
+                  title="Wishlist"
+                >
+                  <Heart className={`w-4 h-4 ${isWishlisted ? 'fill-current' : ''}`} />
+                  <span className="sm:hidden">{isWishlisted ? 'Wishlisted' : 'Wishlist'}</span>
+                </button>
 
-              <button
-                onClick={() => {
-                  dispatch(addToCompare(productData));
-                  dispatch(addToast({ message: 'Added to comparison.', type: 'info' }));
-                }}
-                className="p-3 rounded-xl border border-slate-200 bg-white text-slate-500 hover:text-brand-royal transition-all"
-                title="Compare"
-              >
-                <Scale className="w-5 h-5" />
-              </button>
+                <button
+                  onClick={() => {
+                    dispatch(addToCompare(productData));
+                    dispatch(addToast({ message: 'Added to comparison.', type: 'info' }));
+                  }}
+                  className="flex-1 sm:flex-initial flex items-center justify-center gap-1.5 p-2.5 sm:p-3 rounded-xl border border-slate-200 bg-white text-slate-600 hover:text-brand-royal transition-all text-xs font-semibold"
+                  title="Compare"
+                >
+                  <Scale className="w-4 h-4" />
+                  <span className="sm:hidden">Compare</span>
+                </button>
+              </div>
             </div>
           </div>
 

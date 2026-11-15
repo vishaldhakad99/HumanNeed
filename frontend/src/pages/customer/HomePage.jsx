@@ -81,62 +81,62 @@ export const HomePage = () => {
   const heroBanner = banners.length > 0 ? banners[0] : null;
 
   return (
-    <div className="space-y-12 pb-16">
+    <div className="space-y-8 sm:space-y-12 pb-12 sm:pb-16">
       {/* 1. Hero Section */}
-      <section className="relative bg-gradient-to-br from-brand-navy via-slate-900 to-brand-navy text-white overflow-hidden py-12 md:py-20 px-4">
+      <section className="relative bg-gradient-to-br from-brand-navy via-slate-900 to-brand-navy text-white overflow-hidden py-8 sm:py-12 md:py-20 px-3 sm:px-4">
         {/* Subtle geometric background accents */}
         <div className="absolute inset-0 opacity-10 pointer-events-none">
           <div className="absolute top-10 left-10 w-96 h-96 rounded-full bg-brand-royal blur-3xl" />
           <div className="absolute bottom-10 right-10 w-96 h-96 rounded-full bg-brand-orange blur-3xl" />
         </div>
 
-        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative z-10">
-          <div className="lg:col-span-7 space-y-6 text-center lg:text-left">
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/10 text-xs font-semibold text-brand-orange">
-              <Sparkles className="w-3.5 h-3.5" />
-              <span>India's Trusted Direct-to-Consumer Marketplace</span>
+        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-6 md:gap-8 items-center relative z-10">
+          <div className="lg:col-span-7 space-y-4 sm:space-y-6 text-center lg:text-left">
+            <div className="inline-flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/10 text-[11px] sm:text-xs font-semibold text-brand-orange">
+              <Sparkles className="w-3.5 h-3.5 shrink-0" />
+              <span className="truncate">India's Trusted Direct-to-Consumer Marketplace</span>
             </div>
 
-            <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight text-white">
+            <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight text-white">
               {heroBanner ? heroBanner.title : 'Everything You Need, All in One Place.'}
             </h1>
 
-            <p className="text-sm sm:text-base text-slate-300 max-w-xl mx-auto lg:mx-0 leading-relaxed">
+            <p className="text-xs sm:text-sm md:text-base text-slate-300 max-w-xl mx-auto lg:mx-0 leading-relaxed">
               {heroBanner
                 ? heroBanner.subtitle
                 : 'Discover thousands of authentic electronics, apparel, lifestyle, and household essentials from certified merchant partners with secure checkout.'}
             </p>
 
-            <div className="flex flex-wrap items-center justify-center lg:justify-start gap-3 pt-2">
-              <Link to="/shop" className="btn-primary py-3 px-6 text-sm">
+            <div className="flex flex-wrap items-center justify-center lg:justify-start gap-2.5 sm:gap-3 pt-1 sm:pt-2">
+              <Link to="/shop" className="btn-primary py-2.5 sm:py-3 px-5 sm:px-6 text-xs sm:text-sm">
                 <span>Shop Catalog</span>
                 <ArrowRight className="w-4 h-4" />
               </Link>
-              <Link to="/seller/register" className="btn-secondary py-3 px-6 text-sm">
+              <Link to="/seller/register" className="btn-secondary py-2.5 sm:py-3 px-5 sm:px-6 text-xs sm:text-sm">
                 <Store className="w-4 h-4 text-brand-royal" />
                 <span>Sell with Us</span>
               </Link>
             </div>
 
             {/* Quick Trust Highlights */}
-            <div className="grid grid-cols-3 gap-4 pt-6 border-t border-slate-800/80 max-w-lg mx-auto lg:mx-0 text-left">
+            <div className="grid grid-cols-3 gap-2 sm:gap-4 pt-4 sm:pt-6 border-t border-slate-800/80 max-w-lg mx-auto lg:mx-0 text-center sm:text-left">
               <div>
-                <p className="text-lg font-extrabold text-white">100%</p>
-                <p className="text-xs text-slate-400">Verified Products</p>
+                <p className="text-sm sm:text-lg font-extrabold text-white">100%</p>
+                <p className="text-[10px] sm:text-xs text-slate-400 leading-tight">Verified Products</p>
               </div>
               <div>
-                <p className="text-lg font-extrabold text-brand-orange">₹500+</p>
-                <p className="text-xs text-slate-400">Free Express Delivery</p>
+                <p className="text-sm sm:text-lg font-extrabold text-brand-orange">₹500+</p>
+                <p className="text-[10px] sm:text-xs text-slate-400 leading-tight">Free Express Delivery</p>
               </div>
               <div>
-                <p className="text-lg font-extrabold text-brand-royal">7-Day</p>
-                <p className="text-xs text-slate-400">Easy Returns</p>
+                <p className="text-sm sm:text-lg font-extrabold text-brand-royal">7-Day</p>
+                <p className="text-[10px] sm:text-xs text-slate-400 leading-tight">Easy Returns</p>
               </div>
             </div>
           </div>
 
           <div className="lg:col-span-5 flex justify-center">
-            <div className="relative w-full max-w-md aspect-square rounded-3xl overflow-hidden shadow-2xl border border-white/10 bg-slate-800">
+            <div className="relative w-full max-w-xs sm:max-w-md max-h-56 sm:max-h-80 md:max-h-none aspect-[16/10] sm:aspect-square rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl border border-white/10 bg-slate-800">
               <img
                 src={
                   heroBanner
@@ -146,13 +146,13 @@ export const HomePage = () => {
                 alt="HumanNeed Marketplace"
                 className="w-full h-full object-cover"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-brand-navy/80 via-transparent to-transparent flex items-end p-6">
+              <div className="absolute inset-0 bg-gradient-to-t from-brand-navy/90 via-transparent to-transparent flex items-end p-4 sm:p-6">
                 <div className="text-white">
-                  <span className="text-[10px] font-bold uppercase tracking-wider text-brand-orange">
+                  <span className="text-[9px] sm:text-[10px] font-bold uppercase tracking-wider text-brand-orange">
                     Verified Quality
                   </span>
-                  <p className="text-lg font-bold">Premium Everyday Essentials</p>
-                  <p className="text-xs text-slate-300">Direct from vetted Indian manufacturers & stores</p>
+                  <p className="text-sm sm:text-lg font-bold">Premium Everyday Essentials</p>
+                  <p className="text-[10px] sm:text-xs text-slate-300">Direct from vetted Indian manufacturers</p>
                 </div>
               </div>
             </div>
@@ -161,11 +161,11 @@ export const HomePage = () => {
       </section>
 
       {/* 2. Featured Categories Section */}
-      <section className="max-w-7xl mx-auto px-4">
-        <div className="flex items-center justify-between mb-6">
+      <section className="max-w-7xl mx-auto px-3 sm:px-4">
+        <div className="flex items-center justify-between mb-4 sm:mb-6">
           <div>
-            <h2 className="text-xl md:text-2xl font-extrabold text-brand-dark">Shop by Category</h2>
-            <p className="text-xs text-brand-muted mt-0.5">Explore curated departments and collections</p>
+            <h2 className="text-lg sm:text-xl md:text-2xl font-extrabold text-brand-dark">Shop by Category</h2>
+            <p className="text-[11px] sm:text-xs text-brand-muted mt-0.5">Explore curated departments and collections</p>
           </div>
           <Link
             to="/shop"
@@ -177,27 +177,27 @@ export const HomePage = () => {
         </div>
 
         {loading ? (
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-4">
+          <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-2 sm:gap-4">
             {Array.from({ length: 6 }).map((_, i) => (
-              <div key={i} className="h-28 bg-slate-200 rounded-2xl animate-pulse" />
+              <div key={i} className="h-20 sm:h-28 bg-slate-200 rounded-xl sm:rounded-2xl animate-pulse" />
             ))}
           </div>
         ) : categories.length > 0 ? (
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+          <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-2 sm:gap-4">
             {categories.map((cat) => (
               <Link
                 key={cat._id}
                 to={`/shop?category=${cat.slug}`}
-                className="group flex flex-col items-center justify-center p-4 bg-white rounded-2xl border border-slate-100 hover:border-brand-royal/30 shadow-subtle hover:shadow-card transition-all text-center"
+                className="group flex flex-col items-center justify-center p-2.5 sm:p-4 bg-white rounded-xl sm:rounded-2xl border border-slate-100 hover:border-brand-royal/30 shadow-subtle hover:shadow-card transition-all text-center"
               >
-                <div className="w-14 h-14 rounded-2xl bg-slate-50 group-hover:bg-brand-royal-light flex items-center justify-center text-brand-royal mb-2.5 transition-colors overflow-hidden">
+                <div className="w-10 h-10 sm:w-14 sm:h-14 rounded-xl sm:rounded-2xl bg-slate-50 group-hover:bg-brand-royal-light flex items-center justify-center text-brand-royal mb-1.5 sm:mb-2.5 transition-colors overflow-hidden">
                   {cat.image ? (
                     <img src={cat.image} alt={cat.name} className="w-full h-full object-cover" />
                   ) : (
-                    <ShoppingBag className="w-6 h-6 text-brand-royal" />
+                    <ShoppingBag className="w-5 h-5 sm:w-6 sm:h-6 text-brand-royal" />
                   )}
                 </div>
-                <span className="text-xs font-bold text-brand-dark group-hover:text-brand-royal transition-colors">
+                <span className="text-[11px] sm:text-xs font-bold text-brand-dark group-hover:text-brand-royal transition-colors truncate w-full">
                   {cat.name}
                 </span>
               </Link>
@@ -215,15 +215,15 @@ export const HomePage = () => {
       </section>
 
       {/* 3. Trending Products Section (Real DB Data Only) */}
-      <section className="max-w-7xl mx-auto px-4">
-        <div className="flex items-center justify-between mb-6">
+      <section className="max-w-7xl mx-auto px-3 sm:px-4">
+        <div className="flex items-center justify-between mb-4 sm:mb-6">
           <div className="flex items-center gap-2">
-            <div className="p-2 rounded-xl bg-amber-50 text-brand-orange">
-              <TrendingUp className="w-5 h-5" />
+            <div className="p-1.5 sm:p-2 rounded-xl bg-amber-50 text-brand-orange">
+              <TrendingUp className="w-4 h-4 sm:w-5 sm:h-5" />
             </div>
             <div>
-              <h2 className="text-xl md:text-2xl font-extrabold text-brand-dark">Trending Now</h2>
-              <p className="text-xs text-brand-muted mt-0.5">Most viewed and popular items this week</p>
+              <h2 className="text-lg sm:text-xl md:text-2xl font-extrabold text-brand-dark">Trending Now</h2>
+              <p className="text-[11px] sm:text-xs text-brand-muted mt-0.5">Most viewed and popular items this week</p>
             </div>
           </div>
           <Link
@@ -238,7 +238,7 @@ export const HomePage = () => {
         {loading ? (
           <ProductGridSkeleton count={4} />
         ) : trendingProducts.length > 0 ? (
-          <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
+          <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2.5 sm:gap-4 md:gap-6">
             {trendingProducts.map((product) => (
               <ProductCard key={product._id} product={product} />
             ))}
@@ -255,15 +255,15 @@ export const HomePage = () => {
       </section>
 
       {/* 4. Best Sellers Section (Strictly Based on Real Sales) */}
-      <section className="max-w-7xl mx-auto px-4">
-        <div className="flex items-center justify-between mb-6">
+      <section className="max-w-7xl mx-auto px-3 sm:px-4">
+        <div className="flex items-center justify-between mb-4 sm:mb-6">
           <div className="flex items-center gap-2">
-            <div className="p-2 rounded-xl bg-blue-50 text-brand-royal">
-              <Award className="w-5 h-5" />
+            <div className="p-1.5 sm:p-2 rounded-xl bg-blue-50 text-brand-royal">
+              <Award className="w-4 h-4 sm:w-5 sm:h-5" />
             </div>
             <div>
-              <h2 className="text-xl md:text-2xl font-extrabold text-brand-dark">Best Sellers</h2>
-              <p className="text-xs text-brand-muted mt-0.5">Ranked by actual confirmed sales orders</p>
+              <h2 className="text-lg sm:text-xl md:text-2xl font-extrabold text-brand-dark">Best Sellers</h2>
+              <p className="text-[11px] sm:text-xs text-brand-muted mt-0.5">Ranked by actual confirmed sales orders</p>
             </div>
           </div>
         </div>
@@ -271,7 +271,7 @@ export const HomePage = () => {
         {loading ? (
           <ProductGridSkeleton count={4} />
         ) : bestSellers.length > 0 ? (
-          <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
+          <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2.5 sm:gap-4 md:gap-6">
             {bestSellers.map((product) => (
               <ProductCard key={product._id} product={product} />
             ))}
@@ -288,15 +288,15 @@ export const HomePage = () => {
       </section>
 
       {/* 5. Personalized Recommendations */}
-      <section className="max-w-7xl mx-auto px-4">
-        <div className="flex items-center justify-between mb-6">
+      <section className="max-w-7xl mx-auto px-3 sm:px-4">
+        <div className="flex items-center justify-between mb-4 sm:mb-6">
           <div className="flex items-center gap-2">
-            <div className="p-2 rounded-xl bg-purple-50 text-purple-600">
-              <Compass className="w-5 h-5" />
+            <div className="p-1.5 sm:p-2 rounded-xl bg-purple-50 text-purple-600">
+              <Compass className="w-4 h-4 sm:w-5 sm:h-5" />
             </div>
             <div>
-              <h2 className="text-xl md:text-2xl font-extrabold text-brand-dark">Recommended For You</h2>
-              <p className="text-xs text-brand-muted mt-0.5">Personalized selections matching your shopping interests</p>
+              <h2 className="text-lg sm:text-xl md:text-2xl font-extrabold text-brand-dark">Recommended For You</h2>
+              <p className="text-[11px] sm:text-xs text-brand-muted mt-0.5">Personalized selections matching your shopping interests</p>
             </div>
           </div>
           <Link
@@ -311,7 +311,7 @@ export const HomePage = () => {
         {loading ? (
           <ProductGridSkeleton count={4} />
         ) : recommendedProducts.length > 0 ? (
-          <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
+          <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2.5 sm:gap-4 md:gap-6">
             {recommendedProducts.map((product) => (
               <ProductCard key={product._id} product={product} />
             ))}
@@ -327,17 +327,17 @@ export const HomePage = () => {
         )}
       </section>
 
-      {/* 6. Recently Viewed Products (Hydrated from real browsing history) */}
+      {/* 6. Recently Viewed Products */}
       {recentlyViewed.length > 0 && (
-        <section className="max-w-7xl mx-auto px-4">
-          <div className="flex items-center justify-between mb-6">
+        <section className="max-w-7xl mx-auto px-3 sm:px-4">
+          <div className="flex items-center justify-between mb-4 sm:mb-6">
             <div className="flex items-center gap-2">
-              <div className="p-2 rounded-xl bg-slate-100 text-slate-700">
-                <History className="w-5 h-5" />
+              <div className="p-1.5 sm:p-2 rounded-xl bg-slate-100 text-slate-700">
+                <History className="w-4 h-4 sm:w-5 sm:h-5" />
               </div>
               <div>
-                <h2 className="text-xl md:text-2xl font-extrabold text-brand-dark">Recently Viewed</h2>
-                <p className="text-xs text-brand-muted mt-0.5">Jump right back to items you checked out earlier</p>
+                <h2 className="text-lg sm:text-xl md:text-2xl font-extrabold text-brand-dark">Recently Viewed</h2>
+                <p className="text-[11px] sm:text-xs text-brand-muted mt-0.5">Jump right back to items you checked out earlier</p>
               </div>
             </div>
             <button
@@ -351,7 +351,7 @@ export const HomePage = () => {
             </button>
           </div>
 
-          <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+          <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-2.5 sm:gap-4">
             {recentlyViewed.slice(0, 5).map((product) => (
               <ProductCard key={product._id} product={product} />
             ))}
@@ -360,13 +360,13 @@ export const HomePage = () => {
       )}
 
       {/* 7. Become a Seller Promotional Banner */}
-      <section className="max-w-7xl mx-auto px-4">
-        <div className="bg-gradient-to-r from-brand-navy to-slate-900 rounded-3xl p-8 md:p-12 text-white flex flex-col md:flex-row items-center justify-between gap-8 shadow-premium">
-          <div className="space-y-3 max-w-xl text-center md:text-left">
-            <span className="bg-brand-orange text-brand-dark px-3 py-1 rounded-full text-xs font-extrabold uppercase">
+      <section className="max-w-7xl mx-auto px-3 sm:px-4">
+        <div className="bg-gradient-to-r from-brand-navy to-slate-900 rounded-2xl sm:rounded-3xl p-5 sm:p-8 md:p-12 text-white flex flex-col md:flex-row items-center justify-between gap-6 md:gap-8 shadow-premium">
+          <div className="space-y-2.5 sm:space-y-3 max-w-xl text-center md:text-left">
+            <span className="bg-brand-orange text-brand-dark px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-full text-[10px] sm:text-xs font-extrabold uppercase">
               Partner With Us
             </span>
-            <h3 className="text-2xl md:text-3xl font-extrabold text-white">
+            <h3 className="text-xl sm:text-2xl md:text-3xl font-extrabold text-white">
               Grow Your Business on HumanNeed
             </h3>
             <p className="text-xs md:text-sm text-slate-300 leading-relaxed">
@@ -375,7 +375,7 @@ export const HomePage = () => {
             </p>
           </div>
 
-          <Link to="/seller/register" className="btn-accent px-8 py-3.5 text-sm shrink-0 font-bold">
+          <Link to="/seller/register" className="btn-accent px-6 sm:px-8 py-3 sm:py-3.5 text-xs sm:text-sm shrink-0 font-bold w-full sm:w-auto text-center justify-center">
             <Store className="w-4 h-4" />
             <span>Register as a Merchant</span>
           </Link>

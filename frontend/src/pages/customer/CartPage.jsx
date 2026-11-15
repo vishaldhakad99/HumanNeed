@@ -112,10 +112,10 @@ export const CartPage = () => {
   const progressPercent = Math.min(100, Math.round(((pricing.subtotal - pricing.discount) / 500) * 100));
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-8 space-y-8">
+    <div className="max-w-7xl mx-auto px-3 sm:px-4 py-4 sm:py-8 space-y-6 sm:space-y-8">
       <div>
-        <h1 className="text-2xl font-extrabold text-brand-dark">Shopping Cart</h1>
-        <p className="text-xs text-brand-muted mt-0.5">
+        <h1 className="text-xl sm:text-2xl font-extrabold text-brand-dark">Shopping Cart</h1>
+        <p className="text-[11px] sm:text-xs text-brand-muted mt-0.5">
           {items.length} active item(s) in your basket
         </p>
       </div>

@@ -42,11 +42,11 @@ export const ComparePage = () => {
   );
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-8 space-y-6">
+    <div className="max-w-7xl mx-auto px-3 sm:px-4 py-4 sm:py-8 space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-extrabold text-brand-dark">Compare Products</h1>
-          <p className="text-xs text-brand-muted mt-0.5">
+          <h1 className="text-xl sm:text-2xl font-extrabold text-brand-dark">Compare Products</h1>
+          <p className="text-[11px] sm:text-xs text-brand-muted mt-0.5">
             Comparing {items.length} items side-by-side
           </p>
         </div>

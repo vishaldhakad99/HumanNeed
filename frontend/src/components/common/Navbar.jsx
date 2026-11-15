@@ -178,7 +178,7 @@ export const Navbar = () => {
 
       {/* 2. Main Navigation Bar */}
       <div className="border-b border-slate-100">
-        <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between gap-4">
+        <div className="max-w-7xl mx-auto px-3 sm:px-4 py-2 sm:py-3 flex items-center justify-between gap-2 sm:gap-4">
           {/* Brand Logo */}
           <Link to="/" className="shrink-0">
             <HumanNeedLogo size="normal" />
@@ -273,7 +273,7 @@ export const Navbar = () => {
           </div>
 
           {/* Right Action Icons & Auth */}
-          <div className="flex items-center gap-3 sm:gap-5">
+          <div className="flex items-center gap-1.5 sm:gap-4">
             {/* Ask AI Pill Button */}
             <button
               onClick={() => setIsAIAssistantOpen(true)}
@@ -284,10 +284,10 @@ export const Navbar = () => {
               <span>Ask AI</span>
             </button>
 
-            {/* Wishlist */}
+            {/* Wishlist (Desktop/Tablet) */}
             <Link
               to="/dashboard?tab=wishlist"
-              className="relative p-2 text-slate-600 hover:text-brand-royal hover:bg-slate-50 rounded-xl transition-all"
+              className="hidden sm:inline-flex relative p-2 text-slate-600 hover:text-brand-royal hover:bg-slate-50 rounded-xl transition-all"
               title="Wishlist"
             >
               <Heart className="w-5 h-5" />
@@ -301,7 +301,7 @@ export const Navbar = () => {
             {/* Shopping Cart */}
             <Link
               to="/cart"
-              className="relative flex items-center gap-2 p-2 px-3 text-brand-navy hover:bg-brand-royal-light rounded-xl transition-all group"
+              className="relative flex items-center gap-1.5 p-1.5 sm:p-2 sm:px-3 text-brand-navy hover:bg-brand-royal-light rounded-xl transition-all group"
               title="Cart"
             >
               <div className="relative">
@@ -521,16 +521,16 @@ export const Navbar = () => {
         </div>
       )}
 
-      {/* Floating AI Shopping Assistant Launcher */}
+      {/* Floating AI Shopping Assistant Launcher (FAB on mobile, above bottom nav) */}
       <button
         onClick={() => setIsAIAssistantOpen(true)}
-        className="fixed bottom-6 right-6 z-40 flex items-center gap-2 bg-gradient-to-r from-brand-navy to-slate-900 text-white px-4 py-3 rounded-full shadow-premium hover:shadow-2xl hover:scale-105 transition-all group border border-white/10"
+        className="fixed bottom-20 right-3.5 sm:bottom-6 sm:right-6 z-30 flex items-center gap-2 bg-gradient-to-r from-brand-navy to-slate-900 text-white p-2.5 sm:px-4 sm:py-3 rounded-full shadow-premium hover:shadow-2xl hover:scale-105 transition-all group border border-white/10"
         title="Ask HumanNeed AI Assistant"
       >
-        <div className="w-7 h-7 rounded-full bg-brand-royal flex items-center justify-center">
-          <Sparkles className="w-4 h-4 text-brand-orange animate-pulse" />
+        <div className="w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-brand-royal flex items-center justify-center">
+          <Sparkles className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-brand-orange animate-pulse" />
         </div>
-        <span className="text-xs font-bold tracking-tight pr-1">Ask AI</span>
+        <span className="text-xs font-bold tracking-tight pr-1 hidden sm:inline">Ask AI</span>
       </button>
 
       {/* AI Assistant Interactive Drawer */}

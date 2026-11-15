@@ -100,38 +100,38 @@ export const ShopPage = () => {
   );
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-8">
+    <div className="max-w-7xl mx-auto px-3 sm:px-4 py-4 sm:py-8">
       {/* Page Title & Breadcrumb header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4 mb-4 sm:mb-6">
         <div>
-          <h1 className="text-2xl font-extrabold text-brand-dark">
+          <h1 className="text-xl sm:text-2xl font-extrabold text-brand-dark">
             {selectedCategory
               ? categories.find((c) => c.slug === selectedCategory)?.name || 'Category Products'
               : searchQuery
               ? `Results for "${searchQuery}"`
               : 'Marketplace Catalog'}
           </h1>
-          <p className="text-xs text-brand-muted mt-0.5">
+          <p className="text-[11px] sm:text-xs text-brand-muted mt-0.5">
             Showing {products.length} of {meta.totalCount} authentic products
           </p>
         </div>
 
         {/* Sort & Mobile Filter Trigger */}
-        <div className="flex items-center gap-3">
+        <div className="flex items-center justify-between sm:justify-end gap-2.5">
           <button
             onClick={() => setIsMobileFilterOpen(true)}
-            className="md:hidden flex items-center gap-2 px-3 py-2 bg-white border border-slate-200 rounded-xl text-xs font-semibold text-brand-dark shadow-subtle"
+            className="md:hidden flex items-center gap-1.5 px-3 py-2 bg-white border border-slate-200 rounded-xl text-xs font-semibold text-brand-dark shadow-subtle shrink-0"
           >
             <SlidersHorizontal className="w-4 h-4 text-brand-royal" />
             <span>Filters {hasActiveFilters && '•'}</span>
           </button>
 
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1.5 sm:gap-2">
             <span className="text-xs text-slate-500 hidden sm:inline">Sort By:</span>
             <select
               value={sort}
               onChange={(e) => updateParam('sort', e.target.value)}
-              className="px-3 py-2 bg-white border border-slate-200 rounded-xl text-xs font-semibold text-brand-dark focus:outline-none focus:border-brand-royal shadow-subtle"
+              className="px-2.5 sm:px-3 py-2 bg-white border border-slate-200 rounded-xl text-xs font-semibold text-brand-dark focus:outline-none focus:border-brand-royal shadow-subtle text-ellipsis max-w-[160px] sm:max-w-none"
             >
               <option value="newest">Newest Arrivals</option>
               <option value="price_low_high">Price: Low to High</option>
@@ -214,7 +214,7 @@ export const ShopPage = () => {
           {loading ? (
             <ProductGridSkeleton count={8} />
           ) : products.length > 0 ? (
-            <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+            <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-2.5 sm:gap-4 md:gap-6">
               {products.map((product) => (
                 <ProductCard key={product._id} product={product} />
               ))}

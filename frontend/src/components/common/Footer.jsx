@@ -33,9 +33,9 @@ export const Footer = () => {
   };
 
   return (
-    <footer className="bg-brand-navy text-white pt-12 border-t border-slate-800">
+    <footer className="bg-brand-navy text-white pt-10 sm:pt-12 border-t border-slate-800 pb-16 md:pb-0">
       {/* 1. Value Proposition Banner */}
-      <div className="max-w-7xl mx-auto px-4 pb-12 border-b border-slate-800">
+      <div className="max-w-7xl mx-auto px-4 pb-8 sm:pb-12 border-b border-slate-800">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
           <div className="flex items-start gap-3.5">
             <div className="p-3 bg-slate-800/80 rounded-xl text-brand-royal shrink-0">
