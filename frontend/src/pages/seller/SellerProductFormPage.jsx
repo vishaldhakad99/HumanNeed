@@ -12,14 +12,19 @@ import { Plus, Trash2, ArrowLeft, Loader2, ImagePlus } from 'lucide-react';
 
 export const SellerProductFormPage = () => {
   const { id } = useParams();
+  
   const navigate = useNavigate();
+  
   const dispatch = useDispatch();
 
   const isEditMode = Boolean(id);
 
   const [categories, setCategories] = useState([]);
+  
   const [brands, setBrands] = useState([]);
+  
   const [loading, setLoading] = useState(false);
+  
   const [fetching, setFetching] = useState(isEditMode);
 
   const [formData, setFormData] = useState({
