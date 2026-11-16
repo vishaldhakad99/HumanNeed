@@ -60,14 +60,22 @@ export const SellerProductFormPage = () => {
             const p = prodRes.data.product;
             setFormData({
               title: p.title || '',
+              
               shortDescription: p.shortDescription || '',
+              
               description: p.description || '',
+              
               category: p.category?._id || p.category || '',
+              
               brand: p.brand?._id || p.brand || '',
-              price: p.price || '',
+              
+              price: p.price || 
+                
               discountPrice: p.discountPrice || '',
               stockQuantity: p.stockQuantity || 0,
+              
               lowStockThreshold: p.lowStockThreshold || 5,
+              
               images: p.images?.length > 0 ? p.images : [''],
               specifications:
                 p.specifications?.length > 0 ? p.specifications : [{ key: '', value: '' }],
