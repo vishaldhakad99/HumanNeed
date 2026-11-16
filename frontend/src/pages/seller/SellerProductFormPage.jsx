@@ -1,8 +1,13 @@
 import React, { useState, useEffect } from 'react';
+
 import { useParams, useNavigate } from 'react-router-dom';
+
 import { useDispatch } from 'react-redux';
+
 import api from '../../services/api';
+
 import { addToast } from '../../redux/slices/uiSlice';
+
 import { Plus, Trash2, ArrowLeft, Loader2, ImagePlus } from 'lucide-react';
 
 export const SellerProductFormPage = () => {
